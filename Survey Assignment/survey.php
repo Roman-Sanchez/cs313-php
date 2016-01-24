@@ -1,8 +1,5 @@
 <?php
-	if(!isset($_SESSION))
-	{
-		session_start();
-	}
+	session_start();
 	/*$comedy = $_POST["q1"];
 	$fantasy = $_POST["q2"];
 	$action = $_POST["q3"];

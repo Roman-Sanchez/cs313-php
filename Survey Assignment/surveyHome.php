@@ -3,15 +3,18 @@
   if (!isset($_SESSION))
   {
     session_start();
-    $_SESSION["voted"] = 0;
+    $_SESSION["voted"] = false;
+    $voted = $_SESSION["voted"];
+  }
+  else 
+  {
     $voted = $_SESSION["voted"];
   }
 
-  if ($voted != 0) 
+  if ($voted != false) 
   {
     header('Location: survey.php');
   }
-
 ?>
 
 <!DOCTYPE html>
