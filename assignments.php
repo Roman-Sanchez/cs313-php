@@ -23,10 +23,11 @@
 	      <li><a href="index.php">Home</a></li>
 	      <li class="active"><a href="#">Assignments</a></li>
 	      <li><a href="#">Coding Samples</a></li> 
-	      <li><a href="#">About</a></li> 
+	      <li><a href="about.php">About</a></li> 
 	    </ul>
 	  </div>
 	</nav>
+	<a href="../Survey Assignment/surveyHome.php">PHP Survey</a>
 
 </body>
 </html>

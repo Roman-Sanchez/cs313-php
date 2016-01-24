@@ -25,7 +25,7 @@
 	      <li class="active"><a href="#">Home</a></li>
 	      <li><a href="assignments.php">Assignments</a></li>
 	      <li><a href="#">Coding Samples</a></li> 
-	      <li><a href="#">About</a></li> 
+	      <li><a href="about.php">About</a></li> 
 	    </ul>
 	  </div>
 	</nav>
@@ -38,15 +38,15 @@
 
 		<div class="carousel-inner" role="listbox">
 			<div class="item active">
-				<img class="resize" src="duck_faces.jpg" alt="Ducks">
+				<img class="resize img-rounded" src="duck_faces.jpg" alt="Ducks">
 			</div>
 
 			<div class="item">
-				<img class="resize" src="Mexico_Hauling_the_net.jpg" alt="Mexico">
+				<img class="resize img-rounded" src="Mexico_Hauling_the_net.jpg" alt="Mexico">
 			</div>
 
 			<div class="item">
-				<img class="resize" src="Bow_Fishing.jpg" alt="Bow Fishing">
+				<img class="resize img-rounded" src="Bow_Fishing.jpg" alt="Bow Fishing">
 			</div>
 		</div>
 
