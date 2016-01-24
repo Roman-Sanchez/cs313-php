@@ -1,5 +1,8 @@
 <?php
-	
+	if(!isset($_SESSION))
+	{
+		session_start();
+	}
 	/*$comedy = $_POST["q1"];
 	$fantasy = $_POST["q2"];
 	$action = $_POST["q3"];
@@ -11,6 +14,7 @@
 	// step through each answer and add it append them to the results file
 	if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	{
+		$_SESSION["voted"] = true;
 		$comedy = $_POST["q1"];
 		$fantasy = $_POST["q2"];
 		$action = $_POST["q3"];

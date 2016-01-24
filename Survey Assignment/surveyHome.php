@@ -1,12 +1,17 @@
 <?php
-  $COMPLETED_KEY = "surveySubmitted";
-  $completedSurvey = true;
-  if (isset($_COOKIE[$COMPLETED_KEY])) 
+
+  if (!isset($_SESSION))
+  {
+    session_start();
+    $_SESSION["voted"] = 0;
+    $voted = $_SESSION["voted"];
+  }
+
+  if ($voted != 0) 
   {
     header('Location: survey.php');
   }
 
-  setcookie($COMPLETED_KEY, $completedSurvey);
 ?>
 
 <!DOCTYPE html>
