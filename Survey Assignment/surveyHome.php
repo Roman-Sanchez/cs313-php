@@ -3,10 +3,10 @@
   $completedSurvey = true;
   if (isset($_COOKIE[$COMPLETED_KEY])) 
   {
-    //header( 'Location: ' ) ;
+    header('Location: survey.php');
   }
-  else
-    setcookie($COMPLETED_KEY, $completedSurvey);
+
+  setcookie($COMPLETED_KEY, $completedSurvey);
 ?>
 
 <!DOCTYPE html>
