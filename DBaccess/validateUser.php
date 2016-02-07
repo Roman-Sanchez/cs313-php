@@ -30,7 +30,7 @@
 		}
 
 		try{
-			$db = new PDO('mysql:host=dbHost:dbPort;dbname=php', $dbUser, $dbPassword);
+			$db = new PDO('mysql:host=dbHost;dbname=php', $dbUser, $dbPassword);
 		}
 		catch (PDOException $ex) 
 		{
