@@ -1,4 +1,10 @@
 <?php  
+	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+		$userName = $_POST['inputUserName'];
+		$pWord = $_POST['inputPassword'];
+		$_SESSION["userName"] = $userName;
+		$_SESSION["pWord"] = $pWord;
+	}
 		$openShiftVar = getenv('OPENSHIFT_MYSQL_DB_HOST');
 
 		if ($openShiftVar == null || $openShiftVar == "")
