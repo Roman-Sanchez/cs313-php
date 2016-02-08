@@ -26,11 +26,12 @@
 			$dbPort = getenv('OPENSHIFT_MYSQL_DB_PORT'); 
 			$dbUser = getenv('OPENSHIFT_MYSQL_DB_USERNAME'); 
 			$dbPassword = getenv('OPENSHIFT_MYSQL_DB_PASSWORD');
+			$dbName = 'php'
 			echo "host:$dbHost:$dbPort user:$dbUser password:$dbPassword<br />\n";
 		}
 
 		try{
-			$db = new PDO('mysql:host=dbHost;dbname=php', $dbUser, $dbPassword);
+			$db = new PDO('mysql:host=$dbHost;dbname=$dbName', $dbUser, $dbPassword);
 		}
 		catch (PDOException $ex) 
 		{
