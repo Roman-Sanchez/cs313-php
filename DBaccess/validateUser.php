@@ -10,7 +10,7 @@
 		$_SESSION["userName"] = $userName;
 		$_SESSION["pWord"] = $pWord;
 	}
-	include("dbInit.php");
+	//include("dbInit.php");
 	/** moving this to dbInit.php can be deleted later
  	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
