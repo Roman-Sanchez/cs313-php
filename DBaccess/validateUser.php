@@ -5,15 +5,15 @@
 		session_start();
 	}**/
 	//ini_set('display_errors', 1);
-	/**if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 		$userName = $_POST['inputUserName'];
 		$pWord = $_POST['inputPassword'];
 		$_SESSION["userName"] = $userName;
 		$_SESSION["pWord"] = $pWord;
-	}**/
+	}
 	 //moving this to dbInit.php can be deleted later
- 	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+ 	/**if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 		$userName = $_POST['inputUserName'];
 		$pWord = $_POST['inputPassword'];
@@ -50,7 +50,7 @@
 		{
 		   echo 'Error!: ' . $ex->getMessage();
 		   die(); 
-		}
+		}**/
 
 		// Prepare vaildation statement
 		$stmt = $db->prepare("SELECT User FROM mysql.user WHERE user = :name");
