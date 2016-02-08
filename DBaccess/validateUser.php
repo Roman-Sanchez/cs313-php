@@ -1,5 +1,6 @@
 <?php
 	session_start();
+	include("dbInit.php");
 	/**if (!isset($_SESSION)) {
 		session_start();
 	}**/
@@ -11,7 +12,6 @@
 		$_SESSION["userName"] = $userName;
 		$_SESSION["pWord"] = $pWord;
 	}**/
-	//include("dbInit.php");
 	 //moving this to dbInit.php can be deleted later
  	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
