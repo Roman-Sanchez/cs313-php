@@ -1,7 +1,8 @@
 <?php
-	if (!isset($_SESSION)) {
+	session_start();
+	/**if (!isset($_SESSION)) {
 		session_start();
-	}
+	}**/
 	ini_set('display_errors', 1);
 	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
