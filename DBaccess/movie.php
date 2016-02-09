@@ -11,6 +11,7 @@
 	<title>Movies</title>
 </head>
 <body>
+	<h3>These are the movies you own</h3>
 	<?php
 		foreach ($db->query('SELECT title FROM movie') as $row)
 		{ 
