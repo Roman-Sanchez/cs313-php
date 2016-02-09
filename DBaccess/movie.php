@@ -2,15 +2,7 @@
 	if (!isset($_SESSION)) {
 		session_start();
 	}
-	try 
-		{
-			$db = new PDO('mysql:host=127.0.0.1;dbname=movietracker', $_SESSION["userName"], $_SESSION["pWord"]);
-		}
-		catch (PDOException $ex) 
-		{
-		   echo 'Error!: ' . $ex->getMessage();
-		   die(); 
-		}
+	include('dbInit.php');
   ?>
 
 <!DOCTYPE html>

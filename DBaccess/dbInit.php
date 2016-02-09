@@ -6,29 +6,35 @@
 		$_SESSION["pWord"] = $pWord;
 	}
 		$openShiftVar = getenv('OPENSHIFT_MYSQL_DB_HOST');
+		$inOpenshift = false;
 
 		if ($openShiftVar == null || $openShiftVar == "")
 		{
+			$inOpenshift = false;
 		    // Not in the openshift environment
 		    $dbName = 'movietracker';
-		    $dbHost = 'localhost'; 
-			// not need just yet $dbPort = getenv('OPENSHIFT_MYSQL_DB_PORT'); 
+		    $dbHost = '127.0.0.1';  
 			$dbUser = 'romanfs'; 
 			$dbPassword = 'password';
 		}
 		else 
 		{
+			$inOpenshift = true;
 		    // In the openshift environment 
 			$dbHost = getenv('OPENSHIFT_MYSQL_DB_HOST'); 
 			$dbPort = getenv('OPENSHIFT_MYSQL_DB_PORT'); 
 			$dbUser = getenv('OPENSHIFT_MYSQL_DB_USERNAME'); 
 			$dbPassword = getenv('OPENSHIFT_MYSQL_DB_PASSWORD');
 			$dbName = 'php';
-			echo "host:$dbHost:$dbPort user:$dbUser password:$dbPassword<br />\n";
 		}
 
 		try{
-			$db = new PDO("mysql:host=$dbHost:$dbPort;dbname=$dbName", $dbUser, $dbPassword);
+			if($inOpenshift){
+				$db = new PDO("mysql:host=$dbHost:$dbPort;dbname=$dbName", $dbUser, $dbPassword);
+			}
+			else {
+				$db = new PDO("mysql:host=$dbHost;dbname=$dbName", $dbUser, $dbPassword);
+			}
 		}
 		catch (PDOException $ex) 
 		{

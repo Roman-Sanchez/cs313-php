@@ -11,7 +11,10 @@
 		$pWord = $_POST['inputPassword'];
 		$_SESSION["userName"] = $userName;
 		$_SESSION["pWord"] = $pWord;
-	}
+
+		var_dump($userName);
+		var_dump($pWord);
+	
 	 //moving this to dbInit.php can be deleted later
  	/**if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -59,12 +62,15 @@
 
 		var_dump($stmt);
 		var_dump($stmt->rowCount());
-		if ($stmt->rowCount() > 0) {
+		
+		// Checking if user is in DB; if not, redirects to the sign in page.
+		/**if ($stmt->rowCount() > 0) {
 			header( 'Location: dbaccess.php' ); 
 		}
 		else{
 			header( 'Location: signin.php' ); 
-		}
+		}**/
+		header( 'Location: dbaccess.php');
 	}
   ?>
 <!DOCTYPE html>
