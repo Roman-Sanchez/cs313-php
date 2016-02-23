@@ -1,9 +1,9 @@
 <?php  
 	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-		$userName = $_POST['inputUserName'];
+		/*$userName = $_POST['inputUserName'];
 		$pWord = $_POST['inputPassword'];
 		$_SESSION["userName"] = $userName;
-		$_SESSION["pWord"] = $pWord;
+		$_SESSION["pWord"] = $pWord;*/
 	}
 		$openShiftVar = getenv('OPENSHIFT_MYSQL_DB_HOST');
 		$inOpenshift = false;
@@ -14,8 +14,8 @@
 		    // Not in the openshift environment
 		    $dbName = 'movietracker';
 		    $dbHost = '127.0.0.1';  
-			$dbUser = 'romanfs'; 
-			$dbPassword = 'password';
+			$dbUser = 'root'; 
+			$dbPassword = '';
 		}
 		else 
 		{

@@ -1,5 +1,7 @@
 <?php
 	session_start();
+	require 'sessionStatus.php';
+	require 'password.php';
 	include("dbInit.php");
 	/**if (!isset($_SESSION)) {
 		session_start();
@@ -7,70 +9,49 @@
 	//ini_set('display_errors', 1);
 	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
+		// set the session variables from the form
 		$userName = $_POST['inputUserName'];
-		$pWord = $_POST['inputPassword'];
+		$pWord = password_hash($_POST['inputPassword'], PASSWORD_DEFAULT);
 		$_SESSION["userName"] = $userName;
-		$_SESSION["pWord"] = $pWord;
+		$_SESSION["pWord"] = $_POST['inputPassword'];
 
-		var_dump($userName);
-		var_dump($pWord);
-	
-	 //moving this to dbInit.php can be deleted later
- 	/**if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-		$userName = $_POST['inputUserName'];
-		$pWord = $_POST['inputPassword'];
-		$_SESSION["userName"] = $userName;
-		$_SESSION["pWord"] = $pWord;
-
-
-		$openShiftVar = getenv('OPENSHIFT_MYSQL_DB_HOST');
-
-		if ($openShiftVar == null || $openShiftVar == "")
-		{
-		    // Not in the openshift environment
-		    $dbName = 'movietracker';
-		    $dbHost = 'localhost'; 
-			// not need just yet $dbPort = getenv('OPENSHIFT_MYSQL_DB_PORT'); 
-			$dbUser = 'romanfs'; 
-			$dbPassword = 'password';
-		}
-		else 
-		{
-		    // In the openshift environment 
-			$dbHost = getenv('OPENSHIFT_MYSQL_DB_HOST'); 
-			$dbPort = getenv('OPENSHIFT_MYSQL_DB_PORT'); 
-			$dbUser = getenv('OPENSHIFT_MYSQL_DB_USERNAME'); 
-			$dbPassword = getenv('OPENSHIFT_MYSQL_DB_PASSWORD');
-			$dbName = 'php';
-			echo "host:$dbHost:$dbPort user:$dbUser password:$dbPassword<br />\n";
-		}
-
-		try{
-			$db = new PDO("mysql:host=$dbHost:$dbPort;dbname=$dbName", $dbUser, $dbPassword);
-		}
-		catch (PDOException $ex) 
-		{
-		   echo 'Error!: ' . $ex->getMessage();
-		   die(); 
-		}**/
-
-		// Prepare vaildation statement
-		$stmt = $db->prepare("SELECT User FROM mysql.user WHERE user = :name");
+		// Prepare validation statement
+		$stmt = $db->prepare("SELECT username FROM user WHERE username = :name");
 		$stmt->bindParam(':name', $userName);
 		$stmt->execute();
 
-		var_dump($stmt);
-		var_dump($stmt->rowCount());
+		// Get the password from the DB
+		$stmt2 = $db->prepare("SELECT password FROM user WHERE username = :name");
+		$stmt2->bindParam(':name', $userName);
+		$stmt2->execute();
+		$passwordResult = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 		
+		// Get the userId from the DB
+		$stmt3 = $db->prepare("SELECT userId FROM user where username = :name");
+		$stmt3->bindParam(':name', $userName);
+		$stmt3->execute();
+		$userId = $stmt3->fetchAll(PDO::FETCH_ASSOC);
+
+		print_r($userId[0]['userId']);
 		// Checking if user is in DB; if not, redirects to the sign in page.
-		/**if ($stmt->rowCount() > 0) {
-			header( 'Location: dbaccess.php' ); 
+		if ($stmt->rowCount() > 0) {
+			
+			if (password_verify($_SESSION['pWord'], $passwordResult[0]['password'] ))
+			{
+				$_SESSION["userId"] = $userId[0]['userId'];
+				header('Location: movie.php');
+			}
+			else
+			{
+				header('Location: signin.php');
+			}
+
 		}
 		else{
 			header( 'Location: signin.php' ); 
-		}**/
-		header( 'Location: dbaccess.php');
+		}
+
+
 	}
 	else {
 		header( 'Location: signin.php');

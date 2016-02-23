@@ -1,5 +1,5 @@
 <?php
-	session_start();
+	require 'sessionStatus.php';
 	var_dump($_SESSION["userName"]);
 	var_dump($_SESSION["pWord"]);
 	try 
