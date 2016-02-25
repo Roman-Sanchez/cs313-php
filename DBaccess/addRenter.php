@@ -12,6 +12,7 @@
 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 	<script src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/src/js/bootstrap-datetimepicker.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
+	<script src="bootstrap-datepicker.js"></script>
 	<script> 
 		$(function(){
 		  $("#header").load("header.php");  
@@ -31,21 +32,22 @@
 			    		<form action="#" method="POST" data-toggle="validator" >
 		    				
 		    				<div class="form-group">
-		                		<input type="text" name="newMovie" id="newMovie" class="form-control input-sm" placeholder="Renter's Name" required autofocus>
+		                		<input type="text" name="renterName" id="renterName" class="form-control input-sm" placeholder="Renter's Name" required autofocus>
 		    				</div>
 
 		    				<div class="form-group">
 		                		<input type="text" name="renterMovie" id="renterMovie" class="form-control input-sm" placeholder="Movie" required autofocus>
 		    				</div>
 
-					            <div class="form-group">
-					                <div class='input-group date' id='datetimepicker1'>
-					                    <input type='text' class="form-control input-sm" placeholder="Date" required />
-					                    <span class="input-group-addon">
-					                        <span class="glyphicon glyphicon-calendar"></span>
-					                    </span>
-					                </div>
-					            </div>
+				            <div class="form-group">
+				                <div class='input-group date' id='datetimepicker1'>
+				                    <input type='text' id = "rentalDate" name="rentalDate" class="form-control input-sm" placeholder="yyyy-dd-mm" required />
+				                    <span class="input-group-addon">
+				                        <span class="glyphicon glyphicon-calendar"></span>
+				                    </span>
+				                </div>
+				            </div>
+
 					        <script type="text/javascript">
 					            $(function () {
 					                $('#datetimepicker1').datetimepicker();
@@ -62,58 +64,45 @@
     <?php
     	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    		$newMovie = $_POST['newMovie'];
+    		$renterMovie = $_POST['renterMovie'];
+    		$renterName = $_POST['renterName'];
+    		$rentalDate = $_POST['rentalDate'];
 
-    		// check is movie exists before adding it
-    		$oldMovie = $db->prepare('SELECT title, movieId FROM movie WHERE title = :newTitle');
-    		$oldMovie->bindParam(':newTitle', $newMovie);
-    		$oldMovie->execute();
-    		$oldMovieResults = $oldMovie->fetchALL(PDO::FETCH_ASSOC);
+    		echo "" . $renterName . " " . $renterMovie . " " . $rentalDate . "</br>";
 
-    		// Check if user already owns the movie
-    		$previousOwnership = $db->prepare('SELECT m.title
-												FROM movie m
-												JOIN ownership o ON o.movieId = m.movieId
-												JOIN user u ON u.userId = o.userId
-												WHERE m.title = :newTitle');
-    		$previousOwnership->bindParam(':newTitle', $newMovie);
-    		$previousOwnership->execute();
+    		// Check if user owns the movie they are trying to lend out
+    		$stmt = $db->prepare("SELECT m.title, m.movieId, u.username
+									FROM movie m
+									JOIN ownership o ON o.movieId = m.movieId
+									JOIN user u ON u.userId = o.userId
+									WHERE m.title = :renterMovie AND u.userId = :userId");
+    		$stmt->bindParam(":renterMovie", $renterMovie);
+    		$stmt->bindParam(":userId", $_SESSION['userId']);
+    		$stmt->execute();
+    		$row = $stmt->fetchALL(PDO::FETCH_ASSOC);
     		
-    		if ($oldMovie->rowCount() > 0 && $previousOwnership->rowCount() == 0) {
-    			echo "movie already in DB";
-    			print_r($oldMovieResults[0]['movieId']);
 
-    			// use movie that was previously in the DB and set ownership to that movie
-    			$stmt2 = $db->prepare('INSERT INTO ownership(userId, movieId) VALUES(:userId, :movieId)');
-	    		$stmt2->bindParam(':userId', $_SESSION['userId']);
-	    		$stmt2->bindParam(':movieId', $oldMovieResults[0]['movieId']);
-	    		$stmt2->execute();
-
-    		}
-    		elseif ($oldMovie->rowCount() == 0)
+    		// if the number of rows in less than 0 then the user does not own the movie
+    		// they are trying to lend out. This is not permitted
+    		if($stmt->rowCount() > 0)
     		{
-	    		// Insert new film into DB
-	    		$stmt = $db->prepare('INSERT INTO movie(title) VALUES(:title)');
-	    		$stmt->bindParam(':title', $newMovie );
-	    		$stmt->execute();
+    			$movieId = $row[0]['movieId'];
 
-	    		$movieStmt = $db->prepare('SELECT movieId FROM movie WHERE title = :newTitle');
-	    		$movieStmt->bindParam(':newTitle', $newMovie);
-	    		$movieStmt->execute();
-	    		$movieId = $movieStmt->fetchALL(PDO::FETCH_ASSOC);
+    			$stmt2 = $db->prepare('INSERT INTO loaner(userId, movieId, borrower, rentalDate)
+										VALUES(:userId, :movieId, :renterName, :rentalDate)');
+    			$stmt2->bindParam(':userId', $_SESSION['userId']);
+    			$stmt2->bindParam(':movieId', $movieId);
+    			$stmt2->bindParam(':renterName', $renterName);
+    			$stmt2->bindParam('rentalDate', $rentalDate);
+    			if($stmt2->execute())
+    			{
+    				echo "Movie Rented";
+    			}
 
-	    		// insert into ownership.
-	    		$stmt2 = $db->prepare('INSERT INTO ownership(userId, movieId) VALUES(:userId, :movieId)');
-	    		$stmt2->bindParam(':userId', $_SESSION['userId']);
-	    		$stmt2->bindParam(':movieId', $movieId[0]['movieId']);
-	    		if ($stmt2->execute())
-	    		{
 
-	    			echo "Movie Added";
-	    		}
     		}
-    		else {
-    			echo "You Already own this movie </br>";
+    		else{
+    			echo "You cannot lend out movies you do not own";
     		}
     		
     	}

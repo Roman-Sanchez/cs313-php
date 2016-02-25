@@ -89,6 +89,7 @@
 
 	    			echo "Movie Added";
 	    		}
+	    		
     		}
     		else {
     			echo "You Already own this movie </br>";
