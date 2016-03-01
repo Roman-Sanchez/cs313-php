@@ -105,12 +105,14 @@
 				//add user
 
 				// build insert statement
-				$stmt = $db->prepare("INSERT INTO user(username, displayName, password) VALUES(:userName, :displayName, :pWord)");
+				/**$stmt = $db->prepare("INSERT INTO user(username, displayName, password) VALUES(:userName, :displayName, :pWord)");
 				$stmt->bindParam(':userName', $userName);
 				$stmt->bindParam(':displayName', $displayName);
 				$stmt->bindParam(':pWord', $pWord);
 				$stmt->execute();
-
+				**/
+				$stmt = $db->prepare("INSERT INTO user(username, displayName, password) VALUES(test, test, test)");
+				$stmt->execute();
 				header('Location: signin.php');
 			}
 
