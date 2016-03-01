@@ -85,9 +85,11 @@
     </div>
     
     <!-- Create put user into database --> 
-    <?php  
+    <?php
+    	echo "Inside PHP";  
     	if($_SERVER['REQUEST_METHOD'] == 'POST')
     	{
+    		echo "The Method is POST </br>";
     		$userName = $_POST['userName'];
 	    	$displayName = $_POST['displayName'];
 	    	$pWord = password_hash($_POST['confirm_password'], PASSWORD_DEFAULT);
