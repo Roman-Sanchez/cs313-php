@@ -35,7 +35,6 @@
 			echo "" . $key['title'] . "</br>";
 			echo "Lent to: " . $key['borrower'] . " </br>";
 			echo "On: " . $key['rentalDate'] . " </br>";
-			echo "Returned: " . $key['returnDate'] . "</br>";
 			echo "</br>";
 			echo "</br>";
 		}
