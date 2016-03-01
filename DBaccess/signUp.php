@@ -92,7 +92,7 @@
     		echo "The Method is POST </br>";
     		$userName = $_POST['userName'];
 	    	$displayName = $_POST['displayName'];
-	    	$pWord = password_hash($_POST['confirm_password'], PASSWORD_DEFAULT);
+	    	//$pWord = password_hash($_POST['confirm_password'], PASSWORD_DEFAULT);
 
 	    	$stmt = $db->prepare("SELECT username FROM user WHERE username = :name");
 			$stmt->bindParam(':name', $userName);
