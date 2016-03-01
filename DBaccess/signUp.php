@@ -1,6 +1,6 @@
 <?php  
 	include('dbInit.php');
-	require "pasword.php";
+	require "password.php";
 ?>
 <!DOCTYPE html>
 <html>
