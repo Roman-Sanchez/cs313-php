@@ -96,6 +96,8 @@
 			$stmt->bindParam(':name', $userName);
 			$stmt->execute();
 
+			echo "The Method is POST </br>";
+
 			if ($stmt->rowCount() > 0)
 			{
 				echo "Please choose another User Name";
@@ -111,6 +113,7 @@
 				$stmt->bindParam(':pWord', $pWord);
 				$stmt->execute();
 				**/
+				echo "Trying to add new user";
 				$stmt = $db->prepare("INSERT INTO user(username, displayName, password) VALUES('test', 'test', 'test')");
 				$stmt->execute();
 				header('Location: signin.php');
