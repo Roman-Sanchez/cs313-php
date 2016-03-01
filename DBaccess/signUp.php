@@ -111,7 +111,7 @@
 				$stmt->bindParam(':pWord', $pWord);
 				$stmt->execute();
 				**/
-				$stmt = $db->prepare("INSERT INTO user(username, displayName, password) VALUES(test, test, test)");
+				$stmt = $db->prepare("INSERT INTO user(username, displayName, password) VALUES('test', 'test', 'test')");
 				$stmt->execute();
 				header('Location: signin.php');
 			}
