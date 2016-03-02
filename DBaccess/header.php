@@ -36,7 +36,7 @@
           <?php
               echo "<li><a><span>Welcome: " . $_SESSION["displayName"] . "</span></a></li>";
             ?>
-          <li><a href="signUp.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          <li><a href="signOut.php"><span class="glyphicon glyphicon-user"></span> Logout</a></li>
           <li><a href="signin.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
         </ul>
       </div>
