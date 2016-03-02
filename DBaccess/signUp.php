@@ -17,6 +17,7 @@
     <title>Signin</title>
 
     <!-- Bootstrap core CSS -->
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
     <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="bootstrap.min.css" rel="stylesheet">
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
@@ -43,7 +44,7 @@
 		});
 	</script>
 </head>
-<body>
+<body style="font-family: 'Montserrat', sans-serif">
 	<div id = "header"></div>
 	<div class="container">
         <div class="row centered-form">
@@ -87,7 +88,7 @@
     
     <!-- Create put user into database --> 
     <?php
-    	echo "Inside PHP";  
+    	 
     	if($_SERVER['REQUEST_METHOD'] == 'POST')
     	{
     		echo "The Method is POST </br>";

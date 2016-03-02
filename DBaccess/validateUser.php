@@ -27,7 +27,7 @@
 		$passwordResult = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 		
 		// Get the userId from the DB
-		$stmt3 = $db->prepare("SELECT userId FROM user where username = :name");
+		$stmt3 = $db->prepare("SELECT userId, displayName FROM user where username = :name");
 		$stmt3->bindParam(':name', $userName);
 		$stmt3->execute();
 		$userId = $stmt3->fetchAll(PDO::FETCH_ASSOC);
@@ -39,6 +39,7 @@
 			if (password_verify($_SESSION['pWord'], $passwordResult[0]['password'] ))
 			{
 				$_SESSION["userId"] = $userId[0]['userId'];
+				$_SESSION["displayName"] = $userId[0]['displayName'];
 				header('Location: movie.php');
 			}
 			else

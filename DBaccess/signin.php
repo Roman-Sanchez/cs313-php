@@ -3,6 +3,7 @@
   $_SESSION["userName"] = '';
   $_SESSION["pWord"] = '';
   $_SESSION["userId"] = '';
+  $_SESSION["displayName"] = '';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,6 +29,7 @@
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="navbar.css">
     <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
@@ -49,7 +51,7 @@
     </script>
   </head>
 
-  <body>
+  <body style="font-family: 'Montserrat', sans-serif">
     <div id = "header"></div>
 
     <div class="container">
