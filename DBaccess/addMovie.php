@@ -8,6 +8,7 @@
 <html>
 <head>
 	<title>Movies</title>
+	<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" href="addButton.css">
 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 	<script> 
@@ -16,7 +17,7 @@
 		});
 	</script>
 </head>
-<body>
+<body style="font-family: 'Montserrat', sans-serif">
 	<div id = "header"></div>
 	<div class="container">
         <div class="row centered-form">

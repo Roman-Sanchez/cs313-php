@@ -8,6 +8,7 @@
 <html>
 <head>
 	<title>Add Renter</title>
+	<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" href="addButton.css">
 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 	<script src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/src/js/bootstrap-datetimepicker.js"></script>
@@ -19,7 +20,7 @@
 		});
 	</script>
 </head>
-<body>
+<body style="font-family: 'Montserrat', sans-serif">
 	<div id = "header"></div>
 	<div class="container">
         <div class="row centered-form">
